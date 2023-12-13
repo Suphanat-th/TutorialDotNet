@@ -1,3 +1,5 @@
 # TutorialDotNet
-> ViewModels  and Login Example
-> Html Helpers razor page
+* ViewModels  and Login Example
+  > https://stackoverflow.com/questions/11064316/what-is-viewmodel-in-mvc
+- Html Helpers razor page
+  > https://www.tutorialsteacher.com/mvc/html-helpers
