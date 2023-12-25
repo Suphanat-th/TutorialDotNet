@@ -5,8 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation() ;
-builder.Services.AddScoped<IServicesUser, ServicesUser>();
-builder.Services.AddTransient<RegisterDto>();
+builder.Services.AddSingleton<IServicesUser, ServicesUser>();
 
 var app = builder.Build();
 
