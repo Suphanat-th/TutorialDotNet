@@ -1,4 +1,5 @@
 ﻿using Tutorial.Models.Login;
+using Tutorial.Models.Register;
 
 namespace Tutorial.Services.USER
 {
@@ -6,5 +7,6 @@ namespace Tutorial.Services.USER
     {
         Task<List<loginDtos>> getAllUser();
         Task<loginDtos?> getUserByUsername(string username);
+        Task<RegisterDto?> setUserwithRegister(string username, string password,string fullname);
     }
 }

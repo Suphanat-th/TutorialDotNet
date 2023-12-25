@@ -1,5 +1,5 @@
-﻿@using Tutorial.Models.Login;
-@model loginDtos;
+﻿@using Tutorial.Models.Register;
+@model RegisterDto;
 @{
     ViewData["Title"] = "Home Page";
     Layout = "_LayoutLogin";
@@ -9,14 +9,18 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-center">
-                    LOGIN
+                    REGISTER
                 </div>
             </div>
             <div class="card-body">
                 <div class=" w-100">
                     <div class="row">
-                        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                        @using (Html.BeginForm("Index", "Register", FormMethod.Post))
                         {
+                            <div class="form-group my-3">
+                                <label>FULLNAME : </label>
+                                @Html.TextBoxFor(x => x.fullname, new {@class="form-control", @placeholder="FULLNAME", @autocomplete=false})
+                            </div>
                             <div class="form-group my-3">
                                 <label>USERNAME : </label>
                                 @Html.TextBoxFor(x=>x.username,new {@class="form-control",@placeholder="USERNAME OR EMAIL",@autocomplete=false})
@@ -26,10 +30,9 @@
                                 @Html.PasswordFor(x=>x.password,new {@class="form-control",@placeholder="PASSWORD",@autocomplete=false})
                             </div>
                             @Html.ValidationMessage("error","",new {@class="text-danger"})
-                            <p>Do you account? if not <a href="/Register/Index">Register</a></p>
                             <div class="col-12 my-3">
                                 <div class="d-flex justify-content-end">
-                                    <button class="btn btn-primary">LOGIN</button>
+                                    <button class="btn btn-primary">Register</button>
                                 </div>
                             </div>
                         }

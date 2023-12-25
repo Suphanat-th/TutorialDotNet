@@ -1,3 +1,4 @@
+using Tutorial.Models.Register;
 using Tutorial.Services.USER;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation() ;
 builder.Services.AddScoped<IServicesUser, ServicesUser>();
+builder.Services.AddTransient<RegisterDto>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,7 +20,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseAuthorization();
