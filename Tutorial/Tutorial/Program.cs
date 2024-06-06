@@ -4,8 +4,8 @@ using Tutorial.Services.USER;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation() ;
-builder.Services.AddSingleton<IServicesUser, ServicesUser>();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+// builder.Services.AddCoreDependencyInjection();
 
 var app = builder.Build();
 
