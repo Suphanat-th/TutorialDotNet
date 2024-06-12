@@ -20,41 +20,42 @@
 
             - รวมทั้ง Migration ข้อมูลต่างๆ
 
-            - [Command Migrations เบื้องต้น](https://github.com/Suphanat-th/TutorialDotNet/blob/main/Migration.md "[Command Migrations เบื้องต้น]")
+            - [Command Migrations เบื้องต้น]  (https://github.com/Suphanat-th/TutorialDotNet/blob/main/Migration.md "[Command Migrations เบื้องต้น]")
 
 > UserInterface (Web  Application , API)
 
             - เป็นส่วนที่ผู้ใช้งานจะเข้ามาใช้งานตัวระบบ
 
 ### ความสำคัญของ Project
-  * Level คือ อะไร*
+  * Level คือ อะไร
 
-    *เป็นตัวแสดงความสำคัญ ยิ่ง  Level ยิ่งต่ำจะยิ่งมีผลกระทบกับ  Level ที่สูงขึ้น เช่น หากมีการแก้ไขที่ Level 1  จะเกิดผลกระทบกับ Level ที่มากกว่าที่ทำการแก้ไขไป
+    เป็นตัวแสดงความสำคัญ ยิ่ง  Level ยิ่งต่ำจะยิ่งมีผลกระทบกับ  Level ที่สูงขึ้น เช่น หากมีการแก้ไขที่ Level 1  จะเกิดผลกระทบกับ Level ที่มากกว่าที่ทำการแก้ไขไป
 
 > DOMAIN
 
 * Level 1
 
-      ลำดับความสำคัญที่มากที่สุด เป็นตัวเก็บหรือรวบรวมข้อมูลต่างๆ ของ Entity หรือ Poco database
+      - ลำดับความสำคัญที่มากที่สุด เป็นตัวเก็บหรือรวบรวมข้อมูลต่างๆ ของ Entity หรือ Poco database
 
-      จะไม่มีการ Reference Project อื่นๆ หรือ ติดต่อเรียก Level  อื่นๆ
+      - จะไม่มีการ Reference Project อื่นๆ หรือ ติดต่อเรียก Level  อื่นๆ
 
 > CORE
 
 * Level 2
 
-      เป็นส่วนที่เก็บ Bussiness และ Logic
+      - เป็นส่วนที่เก็บ Bussiness และ Logic
 
-      โดยตัว Core  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
+      - โดยตัว Core  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
 
-       -> Domain
+        -> Domain
 
 > INFRASTRUCTURE
+
 * Level 3
 
-		เป็นส่วนที่ migrations  และ  การสร้าง BaseContext เพื่อใช้ในการเชื่อมต่อ Database  รวมถึงการเชื่อมต่ออื่นๆ จากภายนอกจะถูก  Imprement ในส่วนนี้
+      - เป็นส่วนที่ migrations  และ  การสร้าง BaseContext เพื่อใช้ในการเชื่อมต่อ Database  รวมถึงการเชื่อมต่ออื่นๆ จากภายนอกจะถูก  Imprement ในส่วนนี้
 
-		โดยตัว Infrastructure  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
+		  - โดยตัว Infrastructure  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
 
         ->  Domain
 
@@ -69,5 +70,5 @@
 		* โดยตัว User Interface  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
 
          -> Core
-         
+
          -> Infrastructure
