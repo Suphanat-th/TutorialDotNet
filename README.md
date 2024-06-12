@@ -18,7 +18,7 @@
   *  เป็นส่วนที่เชื่อมต่อกับฐานข้อมูล
   * Config 
   * รวมทั้ง Migration
-  * [Command Migrations เบื้องต้น](https://github.com/Suphanat-th/TutorialDotNet/blob/main/Migration.md "[Command Migrations เบื้องต้น]")
+  * [Command Migrations เบื้องต้น](https://github.com/Suphanat-th/TutorialDotNet/blob/B/Migration.md "[Command Migrations เบื้องต้น]")
 
 > UserInterface (Web  Application , API)
 
@@ -48,9 +48,11 @@
 
 * Level 3
 
-    * เป็นส่วนที่ migrations  และ  การสร้าง BaseContext เพื่อใช้ในการเชื่อมต่อ Database  รวมถึงการเชื่อมต่ออื่นๆ จากภายนอกจะถูก  Imprement ในส่วนนี้*
-		* โดยตัว Infrastructure  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
+    * เป็นส่วนที่ migrations  และ  การสร้าง BaseContext เพื่อใช้ในการเชื่อมต่อ Database  รวมถึงการเชื่อมต่ออื่นๆ จากภายนอกจะถูก  Imprement ในส่วนนี้
+		
+    * โดยตัว Infrastructure  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
       * Domain
+      
       * Core
 
 > USER INTERFACE
@@ -58,6 +60,8 @@
 * Level 4
 
     * เป็นส่วนที่ผู้ใช้งานเข้ามาใช้งานระบบ โดยอาจจะเป็น Web Application หรือ  API ก็ตาม
-		* โดยตัว User Interface  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
+
+	  * โดยตัว User Interface  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
        * Core
+
        * Infrastructure
