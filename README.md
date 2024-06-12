@@ -59,6 +59,5 @@
 
     * เป็นส่วนที่ผู้ใช้งานเข้ามาใช้งานระบบ โดยอาจจะเป็น Web Application หรือ  API ก็ตาม
 	  * โดยตัว User Interface  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
-       * Core
-       * Infrastructure
-       
+      * Core
+      * Infrastructure
