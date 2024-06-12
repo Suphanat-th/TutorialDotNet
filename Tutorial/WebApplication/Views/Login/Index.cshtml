@@ -1,0 +1,43 @@
+@using WebApplication.Models;
+
+@model loginViewModel;
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row">
+    <div class="col-12 mt-5">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-center">
+                    LOGIN
+                </div>
+            </div>
+            <div class="card-body">
+                <div class=" w-100">
+                    <div class="row">
+                        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                        {
+                            <div class="form-group my-3">
+                                <label>USERNAME : </label>
+                                @Html.TextBoxFor(x=>x.username,new {@class="form-control",@placeholder="USERNAME OR EMAIL",@autocomplete=false})
+                            </div>
+                            <div class="form-group my-3">
+                                <label>PASSWORD : </label>
+                                @Html.PasswordFor(x=>x.password,new {@class="form-control",@placeholder="PASSWORD",@autocomplete=false})
+                            </div>
+                            @Html.ValidationMessage("error","",new {@class="text-danger"})
+                            <p>Do you account? if not <a href="/Register/Index">Register</a></p>
+                            <div class="col-12 my-3">
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary">LOGIN</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

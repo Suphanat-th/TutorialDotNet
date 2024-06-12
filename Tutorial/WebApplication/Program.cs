@@ -1,7 +1,20 @@
-var builder = WebApplication.CreateBuilder(args);
+using Core;
+using Infrastructure;
+
+var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddMvc();
+
+#region Add Dependency of Infrastructure
+builder.Services.InfrastructureServicesExtension(builder.Configuration);
+#endregion END -  Add Dependency of Infrastructure
+
+#region Add Dependency of Core
+builder.Services.CoreServicesExtension();
+#endregion END -  Add Dependency of Core
+
 
 var app = builder.Build();
 
