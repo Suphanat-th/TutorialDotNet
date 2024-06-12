@@ -49,10 +49,8 @@
 * Level 3
 
     * เป็นส่วนที่ migrations  และ  การสร้าง BaseContext เพื่อใช้ในการเชื่อมต่อ Database  รวมถึงการเชื่อมต่ออื่นๆ จากภายนอกจะถูก  Imprement ในส่วนนี้
-		
     * โดยตัว Infrastructure  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
       * Domain
-      
       * Core
 
 > USER INTERFACE
@@ -60,8 +58,7 @@
 * Level 4
 
     * เป็นส่วนที่ผู้ใช้งานเข้ามาใช้งานระบบ โดยอาจจะเป็น Web Application หรือ  API ก็ตาม
-
 	  * โดยตัว User Interface  จะมีการ Reference หรือ ติดต่อกับ  Level  อื่นๆ ดังนี้
        * Core
-
        * Infrastructure
+       
