@@ -1,12 +1,29 @@
+using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Tutorial;
+using Tutorial.Database;
 using Tutorial.Models.Register;
-using Tutorial.Services.USER;
+using Tutorial.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation() ;
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
+
+// Add  services of DbContext with Sqlite
+builder.Services.AddDbContext<DataContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite")));
+
+// Infrastucture
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+
+// Core
 builder.Services.AddScoped<IServicesUser, ServicesUser>();
-builder.Services.AddTransient<RegisterDto>();
+
 
 var app = builder.Build();
 

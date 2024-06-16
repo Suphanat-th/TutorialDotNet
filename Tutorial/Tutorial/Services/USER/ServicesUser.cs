@@ -1,69 +1,48 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Tutorial.Database.DTOs;
+using Tutorial.Models;
 using Tutorial.Models.Login;
 using Tutorial.Models.Register;
 
-namespace Tutorial.Services.USER
+namespace Tutorial.Services;
+public class ServicesUser : IServicesUser
 {
-    /*public interface IServicesUser
+    private readonly IUserRepository userRepository;
+    private readonly IMapper mapper;
+
+    public ServicesUser(IUserRepository userRepository, IMapper mapper)
     {
-        Task<List<loginDtos>> getAllUser();
-        Task<loginDtos?> getUserByUsername(string username);
-        Task<RegisterDto?> setUserwithRegister(string username, string password, string fullname);
-    }*/
-    public class ServicesUser : IServicesUser
+        this.userRepository = userRepository;
+        this.mapper = mapper;
+    }
+
+    public async Task<List<userResponse>?> getAllUser()
     {
-        private List<loginDtos> _user = new List<loginDtos>()
-            {
-                    new loginDtos() { username = "test", password = "Test", fullname = "Mr.Test" },
-                    new loginDtos() { username = "a", password = "abc", fullname = "Mr.A" }
-            };
+        var data = await userRepository.getAllUser();
+        return await Task.FromResult(mapper.Map<List<userResponse>>(data));
+    }
 
-        private readonly List<RegisterDto> _regis;
+    public async Task<userResponse?> getUserByUsername(string username)
+    {
+        var data = await userRepository.getByUsername(username);
+        return await Task.FromResult(mapper.Map<userResponse>(data));
+    }
 
-        public ServicesUser()
+    public async Task<userResponse?> setUserwithRegister(string username, string password)
+    {
+        var data = new userResponse
         {
-            _regis = new List<RegisterDto>();
-            //_user = initialUser();
-        }
+            username = username.ToLower(),
+            password = password
+        };
+        var checkUser = await userRepository.getByUsername(username.ToLower());
+        if (checkUser != null)
+            return null;
 
-        //private static List<loginDtos> initialUser()
-        //{
-        //    var data
-        //    return data;
-        //}
-
-        public async Task<List<loginDtos>> getAllUser()
-        {
-            return await Task.FromResult(_user);
-        }
-
-        public async Task<loginDtos?> getUserByUsername(string username)
-        {
-            var data = _user.FirstOrDefault(x => x.username.ToLower() == username.ToLower());
-            return await Task.FromResult(data);
-        }
-
-        public async Task<RegisterDto?> setUserwithRegister(string username, string password, string fullname)
-        {
-            var data = new RegisterDto
-            {
-                username = username,
-                password = password,
-                fullname = fullname
-            };
-
-            _regis.Add(data);
-
-            var loginData = new loginDtos
-            {
-                username = username,
-                password = password,
-                fullname = fullname,
-            };
-
-            _user.Add(loginData);
-
-            return await Task.FromResult<RegisterDto?>(data);
-        }
+        var result = await userRepository.createUsers(mapper.Map<Users>(data));
+        if (!result)
+            return null;
+        return await Task.FromResult<userResponse?>(data);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tutorial.Models;
 using Tutorial.Models.Login;
-using Tutorial.Services.USER;
+using Tutorial.Services;
 
 namespace Tutorial.Controllers
 {
@@ -17,7 +18,7 @@ namespace Tutorial.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(loginDtos req)
+        public async Task<IActionResult> Index(userResponse req)
         {
             ModelState.Clear();
             if (string.IsNullOrEmpty(req.username))
