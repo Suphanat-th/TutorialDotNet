@@ -1,12 +1,9 @@
-﻿using Tutorial.Models.Login;
-using Tutorial.Models.Register;
+﻿using Tutorial.Models;
 
-namespace Tutorial.Services.USER
+namespace Tutorial.Services;
+public interface IServicesUser
 {
-    public interface IServicesUser
-    {
-        Task<List<loginDtos>> getAllUser();
-        Task<loginDtos?> getUserByUsername(string username);
-        Task<RegisterDto?> setUserwithRegister(string username, string password,string fullname);
-    }
+    Task<List<userResponse>?> getAllUser();
+    Task<userResponse?> getUserByUsername(string username);
+    Task<userResponse?> setUserwithRegister(string username, string password);
 }
