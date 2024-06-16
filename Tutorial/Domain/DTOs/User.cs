@@ -1,5 +1,5 @@
-﻿namespace Tutorial.Database.DTOs;
-public class Users
+﻿namespace Domain;
+public class User
 {
     public int id { get; set; }
     public string username { get; set; }

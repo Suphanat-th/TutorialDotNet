@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain;
+using Infrastructure.Database.Configurations;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Tutorial.Database.Configurations;
-using Tutorial.Database.DTOs;
 
-namespace Tutorial.Database;
+namespace Infrastructure.Database;
 public class DataContext : DbContext
 {
     public DataContext(DbContextOptions<DataContext> options) : base(options)
@@ -11,7 +11,7 @@ public class DataContext : DbContext
 
     }
 
-    public DbSet<Users> users { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

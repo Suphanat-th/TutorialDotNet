@@ -1,11 +1,11 @@
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Tutorial.Database.DTOs;
 
-namespace Tutorial.Database.Configurations;
-public class UserConfiguration : IEntityTypeConfiguration<Users>
+namespace Infrastructure.Database.Configurations;
+public class UserConfiguration : IEntityTypeConfiguration<User>
 {
-    public void Configure(EntityTypeBuilder<Users> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
         builder
             .HasKey(x => x.id);

@@ -1,6 +1,4 @@
-﻿using Tutorial.Models;
-
-namespace Tutorial.Services;
+﻿namespace Core;
 public interface IServicesUser
 {
     Task<List<userResponse>?> getAllUser();

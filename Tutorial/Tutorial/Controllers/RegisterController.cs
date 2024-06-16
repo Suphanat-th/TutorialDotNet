@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core;
+using Microsoft.AspNetCore.Mvc;
 using Tutorial.Models;
-using Tutorial.Services;
 
 namespace Tutorial.Controllers
 {
