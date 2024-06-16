@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Tutorial.Database.DTOs;
 using Tutorial.Models;
-using Tutorial.Models.Login;
-using Tutorial.Models.Register;
 
 namespace Tutorial.Services;
 public class ServicesUser : IServicesUser

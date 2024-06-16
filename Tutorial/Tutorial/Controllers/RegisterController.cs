@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tutorial.Models;
-using Tutorial.Models.Login;
-using Tutorial.Models.Register;
 using Tutorial.Services;
 
 namespace Tutorial.Controllers

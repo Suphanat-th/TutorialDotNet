@@ -1,8 +1,7 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using Tutorial;
 using Tutorial.Database;
-using Tutorial.Models.Register;
 using Tutorial.Services;
 
 var builder = WebApplication.CreateBuilder(args);

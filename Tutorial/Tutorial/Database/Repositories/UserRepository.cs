@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Tutorial.Database;
 using Tutorial.Database.DTOs;
 
@@ -22,7 +18,7 @@ public class UserRepository : IUserRepository
         {
             await _DbContext.users.AddAsync(request);
             await _DbContext.SaveChangesAsync();
-            
+
             return await Task.FromResult(true);
         }
         catch
