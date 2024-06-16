@@ -16,7 +16,7 @@ public class UserRepository : IUserRepository
     {
         try
         {
-            await _DbContext.users.AddAsync(request);
+            await _DbContext.Set<Users>().AddAsync(request);
             await _DbContext.SaveChangesAsync();
 
             return await Task.FromResult(true);
