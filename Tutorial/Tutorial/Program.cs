@@ -1,8 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Tutorial;
-using Tutorial.Database;
-using Tutorial.Services;
+using Core;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,18 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 
-// Add  services of DbContext with Sqlite
-builder.Services.AddDbContext<DataContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite")));
+#region Add Dependency of Infrastructure
+builder.Services.InfrastructureServicesExtension(builder.Configuration);
+#endregion END -  Add Dependency of Infrastructure
 
-// Infrastucture
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-
-// Core
-builder.Services.AddScoped<IServicesUser, ServicesUser>();
+#region Add Dependency of Core
+builder.Services.CoreServicesExtension();
+#endregion END -  Add Dependency of Core
 
 
 var app = builder.Build();

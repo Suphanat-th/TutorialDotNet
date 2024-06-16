@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Tutorial.Database.DTOs;
-using Tutorial.Models;
+using Domain;
 
-namespace Tutorial.Services;
+namespace Core;
 public class ServicesUser : IServicesUser
 {
     private readonly IUserRepository userRepository;
@@ -37,7 +36,7 @@ public class ServicesUser : IServicesUser
         if (checkUser != null)
             return null;
 
-        var result = await userRepository.createUsers(mapper.Map<Users>(data));
+        var result = await userRepository.createUsers(mapper.Map<User>(data));
         if (!result)
             return null;
         return await Task.FromResult<userResponse?>(data);
