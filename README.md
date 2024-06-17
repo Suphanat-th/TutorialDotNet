@@ -8,31 +8,24 @@
 * Html Helpers razor page
   > https://www.tutorialsteacher.com/mvc/html-helpers
 
-# Concept
+# อธิบาย
 
-การทำงานจะแบ่งออกเป็น 2 ส่วนคือ Fontend , Backend
+UserInterface (Web Application, API) -> Core ->Infrastructure ->Domain
 
-* Fontend ประกอบด้วย
+Deep Level คือ ในแต่ละ  Level การสื่อสารกันจะติดต่อสื่อสารและ Implement Logic กันผ่าน Interface 
 
-  * Controller
-  * Models
-  * View
-  * wwwroot
+  * User  Interface
 
-* Backend ประกอบด้วย
+    User  Interface หรือส่วนที่ผู้ใช้งานทำการกระทำต่อระบบ เช่น  Web Application หรือ Api นั้นเอง
 
-  * Database
-    Database คือ ส่วนที่เอาไว้จัดการเกี่ยวกับฐานข้อมูลต่างๆ ประกอบด้วย
+  * Core
 
-    - Configuration
-      Configuration คือ Folder ที่เอาไว้สำหรับเก็บ File ที่จัดการตัว POCO Schema deatil ต่างๆ
-    - DTOs
-      DTOs คือ Folder สำหรับการเก็บ Class ที่เอาไว้กำหนด Schema ของฐานข้อมูล
-    - Migrations
-      Migrations คือ Folder สำหรับ Snapshot ในการสร้างหรืออัปเดตฐานข้อมูลแต่ละครั้ง
-    - Repositories
-      Repositories คือ Folder  ที่เก็บการทำงาน CRUD ในฝั่งของฐานข้อมูลโดยเฉพาะ โดย Dev  จะต้องสร้าง  Interface ขึ้นมารับจากฝั่งของหน้าบ้าน
-    - DataContext.cs
-      DataContext คือ File  ที่เอาไว้ทำการเชื่อมกับฐานข้อมูล โดยที่เราจะ  configuration และ  Imprement  table ใน File   นี้
+    Core คือ ส่วนที่ทำการกำหนด หรือ พัฒนา Logic โดยจะส่งคืน Bussiness  Logic กลับไปให้ UI ในการแสดงผล  ซึ่งในส่วนนี้จะไม่มีการเชื่อมต่อหรือทำอะไรเกี่ยวกับการเชื่อมต่อต่างๆ
 
-  * Services
+  * Infrastructure
+
+    Infrastructure คือ ส่วนที่ใช้ในการติดต่อสื่อสารต่างๆกับ ภายนอกเช่น Database , API อื่นๆ , Caching หรือ Linenoti เป็นต้น
+
+  * Domain
+
+    Domain คือ  ตัวกำหนด Poco หรือ Event  ในการเชื่อมต่อกับภายนอก
