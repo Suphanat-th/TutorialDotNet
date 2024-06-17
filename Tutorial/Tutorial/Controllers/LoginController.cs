@@ -1,6 +1,5 @@
 ﻿using Core;
 using Microsoft.AspNetCore.Mvc;
-using Tutorial.Models;
 
 namespace Tutorial.Controllers
 {

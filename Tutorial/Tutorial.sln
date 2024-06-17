@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{08DD534A-A48F-48DF-BE81-B2C7A1EA3DDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorialAPI", "TutorialAPI\TutorialAPI.csproj", "{E15E991E-B3ED-4AA7-861D-6E1621C97D9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{08DD534A-A48F-48DF-BE81-B2C7A1EA3DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08DD534A-A48F-48DF-BE81-B2C7A1EA3DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08DD534A-A48F-48DF-BE81-B2C7A1EA3DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E15E991E-B3ED-4AA7-861D-6E1621C97D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E15E991E-B3ED-4AA7-861D-6E1621C97D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E15E991E-B3ED-4AA7-861D-6E1621C97D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E15E991E-B3ED-4AA7-861D-6E1621C97D9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
