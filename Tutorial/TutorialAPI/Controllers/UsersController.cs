@@ -52,7 +52,7 @@ namespace TutorialAPI.Controllers
             }
             else
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest,"No userId"));
+                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "No userId"));
             }
         }
 
@@ -60,6 +60,13 @@ namespace TutorialAPI.Controllers
         [Route("/users")]
         public async Task<IActionResult> createUsers(userResponse request)
         {
+            //Check username have in Database or not
+            var checkUesername = await userRepository.getByUsername(request.username.ToLower());
+            if (checkUesername != null)
+                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "This username already have"));
+
+
+            //Create username 
             var data = await userRepository.createUsers(request);
             if (data == true)
             {
@@ -76,14 +83,24 @@ namespace TutorialAPI.Controllers
         [Route("/users/id")]
         public async Task<IActionResult> chanagePasswordById(int id)
         {
+
             return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
         }
 
         [HttpPut]
-        [Route("/users/username")]
+        [Route("/users/{username}")]
         public async Task<IActionResult> chanagePasswordByUsername(string username)
         {
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
+            var data = await userRepository.getByUsername(username.ToLower());
+            if (data != null)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
+
+            }
+            else
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "Doesn't have username in system"));
+            }
         }
 
         [HttpDelete]
