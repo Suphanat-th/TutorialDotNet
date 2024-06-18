@@ -41,4 +41,9 @@ public class ServicesUser : IServicesUser
             return null;
         return await Task.FromResult<userResponse?>(data);
     }
+    public async Task<userResponse?> getUserByID(int id)
+    {
+        var data = await userRepository.getUserByID(id);
+        return await Task.FromResult(mapper.Map<userResponse>(data));
+    }
 }

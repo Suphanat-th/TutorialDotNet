@@ -7,4 +7,5 @@ public interface IUserRepository
     Task<User?> getByID(int id);
     Task<User?> getByUsername(string username);
     Task<bool> createUsers(User request);
+    Task<User?> getUserByID(int id);
 }

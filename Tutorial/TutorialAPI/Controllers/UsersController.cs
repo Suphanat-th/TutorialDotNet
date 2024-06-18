@@ -25,7 +25,11 @@ namespace TutorialAPI.Controllers
         [Route("/{id}/users")]
         public async Task<IActionResult> getUserByID(int id)
         {
-            var data = "ID 1 TEST TEST";
+            var data = await userServices.getUserByID(id);
+            if (data == null)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+            }
             return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
         }
 
