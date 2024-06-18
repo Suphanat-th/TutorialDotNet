@@ -37,7 +37,12 @@ namespace TutorialAPI.Controllers
         [Route("/users")]
         public async Task<IActionResult> createUsers(userResponse request)
         {
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
+            if (string.IsNullOrEmpty(request.username) || string.IsNullOrEmpty(request.password))
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+            }
+            var register_user = await userServices.setUserwithRegister(request.username, request.password);
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK,register_user));
         }
 
         [HttpPut]

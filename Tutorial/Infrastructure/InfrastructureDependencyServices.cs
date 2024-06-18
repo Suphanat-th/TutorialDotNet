@@ -1,4 +1,5 @@
 ﻿using Core;
+using Domain;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

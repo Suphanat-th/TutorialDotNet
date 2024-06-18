@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 public class UserRepository : IUserRepository
+
 {
     protected readonly DataContext _DbContext;
     public UserRepository(DataContext dbContext)
