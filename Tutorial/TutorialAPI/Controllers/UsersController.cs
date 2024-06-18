@@ -25,7 +25,8 @@ namespace TutorialAPI.Controllers
         [Route("/{id}/users")]
         public async Task<IActionResult> getUserByID(int id)
         {
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
+            var data = "ID 1 TEST TEST";
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
         }
 
         [HttpPost]
