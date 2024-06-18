@@ -9,10 +9,13 @@ namespace TutorialAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IServicesUser userServices;
-        public UsersController(IServicesUser userServices)
+        private readonly IUserRepository userRepository;
+        public UsersController(IServicesUser userServices, IUserRepository userRepository)
         {
             this.userServices = userServices;
+            this.userRepository = userRepository;
         }
+
         [HttpGet]
         [Route("/users")]
         public async Task<IActionResult> getAllUsers()
@@ -21,18 +24,52 @@ namespace TutorialAPI.Controllers
             return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
         }
 
+        //Add getUserByUsername
+        [HttpGet]
+        [Route("/users/{username}")]
+        public async Task<IActionResult> getUserByUsername(string username)
+        {
+            var data = await userServices.getUserByUsername(username);
+            if (data != null)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
+            }
+            else
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "No data"));
+            }
+        }
+
+
         [HttpGet]
         [Route("/{id}/users")]
         public async Task<IActionResult> getUserByID(int id)
         {
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
+            var data = await userRepository.getByID(id);
+            if (data != null)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
+            }
+            else
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest,"No userId"));
+            }
         }
 
         [HttpPost]
         [Route("/users")]
         public async Task<IActionResult> createUsers(userResponse request)
         {
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
+            var data = await userRepository.createUsers(request);
+            if (data == true)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "Create User Success!!"));
+            }
+            else
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "Create User Failed!!"));
+
+            }
         }
 
         [HttpPut]
