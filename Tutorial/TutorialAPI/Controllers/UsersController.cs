@@ -1,6 +1,8 @@
 ﻿using Core;
+using Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace TutorialAPI.Controllers
 {
@@ -47,23 +49,49 @@ namespace TutorialAPI.Controllers
 
         [HttpPut]
         [Route("/users/id")]
-        public async Task<IActionResult> chanagePasswordById(int id)
+        public async Task<IActionResult> chanagePasswordById(int id, [FromBody] string password)
         {
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
+            var existinid = await userServices.getUserByID(id);
+            if (existinid == null)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+            }
+            var chanagePass = await userServices.chanagePasswordById(id,password);
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, chanagePass));
         }
 
         [HttpPut]
         [Route("/users/username")]
-        public async Task<IActionResult> chanagePasswordByUsername(string username)
+        public async Task<IActionResult> chanagePasswordByUsername(string username,[FromBody] string password)
         {
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
+            var existinid = await userServices.getUserByUsername(username);
+            if (existinid == null)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+            }
+            var chanagePass = await userServices.chanagePasswordByUsername(username,password);
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, chanagePass));
         }
 
         [HttpDelete]
         [Route("/users/{id}")]
         public async Task<IActionResult> deleteUser(int id)
         {
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
+            var existinid = await userServices.getUserByID(id);
+            if (existinid == null)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+            }
+            var result = await userServices.deleteUser(id);
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, result));
         }
 
     }

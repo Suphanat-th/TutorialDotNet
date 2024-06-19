@@ -46,4 +46,36 @@ public class ServicesUser : IServicesUser
         var data = await userRepository.getByID(id);
         return await Task.FromResult(mapper.Map<userResponse>(data));
     }
+    public async Task<userResponse?> chanagePasswordById(int id, string password)
+    {
+        var data = new userResponse
+        {
+            id = id,
+            password = password
+        };
+        var result = await userRepository.createUsers(mapper.Map<User>(data));
+        if (!result)
+            return null;
+        return await Task.FromResult<userResponse?>(data);
+    }
+    public async Task<userResponse?> chanagePasswordByUsername(string username, string password)
+    {
+        var data = new userResponse
+        {
+            username = username.ToLower(),
+            password = password
+        };
+        var result = await userRepository.createUsers(mapper.Map<User>(data));
+        if (!result)
+            return null;
+        return await Task.FromResult<userResponse?>(data);
+    }
+    public async Task<userResponse?> deleteUser(int id)
+    {
+        var data = await userRepository.deleteUser(id);
+        var result = await userRepository.createUsers(mapper.Map<User>(data));
+        if (!result)
+            return null;
+        return await Task.FromResult(mapper.Map<userResponse>(data));
+    }
 }

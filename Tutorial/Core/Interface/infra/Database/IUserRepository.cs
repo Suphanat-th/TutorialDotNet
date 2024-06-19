@@ -7,4 +7,7 @@ public interface IUserRepository
     Task<User?> getByID(int id);
     Task<User?> getByUsername(string username);
     Task<bool> createUsers(User request);
+    Task<bool> chanagePasswordById(User request);
+    Task<bool> chanagePasswordByUsername(User request);
+    Task<bool> deleteUser(int id);
 }

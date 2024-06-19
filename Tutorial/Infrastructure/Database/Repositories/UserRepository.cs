@@ -30,5 +30,62 @@ public class UserRepository : IUserRepository
             return await Task.FromResult(false);
         }
     }
+    public async Task<bool> chanagePasswordById(User request)
+    {
+        try
+        {
+            var user = _DbContext.Set<User>().Find(request.id);
+            if (user == null)
+            {
+                return await Task.FromResult(false);
+            }
+            user.password = request.password;
+            await _DbContext.SaveChangesAsync();
+            return await Task.FromResult(true);
+        }
+        catch (Exception)
+        {
+            return await Task.FromResult(false);
+        }
+    }
+    public async Task<bool> chanagePasswordByUsername(User request)
+    {
+        try
+        {
+            var user = _DbContext.Set<User>().Find(request.username);
+            if (user == null)
+            {
+                return await Task.FromResult(false);
+            }
+            user.password = request.password;
+            await _DbContext.SaveChangesAsync();
+            return await Task.FromResult(true);
+        }
+        catch (Exception)
+        {
+            return await Task.FromResult(false);
+        }
+    }
+    public async Task<bool> deleteUser(int id)
+    {
+        try
+        {
+            var user = await _DbContext.Users.FindAsync(id);
+            if (user == null)
+            {
+                return false; // User not found
+            }
+
+            _DbContext.Users.Remove(user);
+            await _DbContext.SaveChangesAsync();
+
+            return true;
+        }
+        catch (Exception)
+        {
+            // Log the exception (not shown here for brevity)
+            return false;
+        }
+    }
 
 }
