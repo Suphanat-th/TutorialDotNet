@@ -8,10 +8,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder
-            .HasKey(x => x.id);
+            .HasKey(x => x.Id);
 
         builder
-            .Property(x => x.id)
+            .Property(x => x.Id)
             .ValueGeneratedOnAdd();
 
         builder
