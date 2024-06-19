@@ -30,6 +30,5 @@ public class UserRepository : IUserRepository
             return await Task.FromResult(false);
         }
     }
-    public async Task<User?> getUserByID(int id) => await _DbContext.Set<User>().FindAsync(id);
-  
+
 }
