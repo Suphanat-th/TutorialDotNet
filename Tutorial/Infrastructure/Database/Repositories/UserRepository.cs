@@ -52,7 +52,7 @@ public class UserRepository : IUserRepository
     {
         try
         {
-            var user = _DbContext.Set<User>().Find(request.username);
+            var user = await Task.FromResult(_DbContext.Set<User>().FirstOrDefault(x => x.username == request.username));
             if (user == null)
             {
                 return await Task.FromResult(false);
@@ -70,13 +70,12 @@ public class UserRepository : IUserRepository
     {
         try
         {
-            var user = await _DbContext.Users.FindAsync(id);
+            var user = await Task.FromResult(_DbContext.Set<User>().Find(id));
             if (user == null)
             {
                 return false; // User not found
             }
-
-            _DbContext.Users.Remove(user);
+            _DbContext.Set<User>().Remove(user);
             await _DbContext.SaveChangesAsync();
 
             return true;

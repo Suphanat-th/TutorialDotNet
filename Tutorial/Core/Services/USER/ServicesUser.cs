@@ -53,7 +53,7 @@ public class ServicesUser : IServicesUser
             id = id,
             password = password
         };
-        var result = await userRepository.createUsers(mapper.Map<User>(data));
+        var result = await userRepository.chanagePasswordById(mapper.Map<User>(data));
         if (!result)
             return null;
         return await Task.FromResult<userResponse?>(data);
@@ -65,17 +65,17 @@ public class ServicesUser : IServicesUser
             username = username.ToLower(),
             password = password
         };
-        var result = await userRepository.createUsers(mapper.Map<User>(data));
+        var result = await userRepository.chanagePasswordByUsername(mapper.Map<User>(data));
         if (!result)
             return null;
         return await Task.FromResult<userResponse?>(data);
     }
     public async Task<userResponse?> deleteUser(int id)
     {
-        var data = await userRepository.deleteUser(id);
-        var result = await userRepository.createUsers(mapper.Map<User>(data));
+        var data = await userRepository.getByID(id);
+        var result = await userRepository.deleteUser(id);
         if (!result)
             return null;
-        return await Task.FromResult(mapper.Map<userResponse>(data));
+        return await Task.FromResult(mapper.Map<userResponse?>(data));
     }
 }

@@ -61,7 +61,7 @@ namespace TutorialAPI.Controllers
                 return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
             }
             var chanagePass = await userServices.chanagePasswordById(id,password);
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, chanagePass));
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK,chanagePass));
         }
 
         [HttpPut]
@@ -78,7 +78,7 @@ namespace TutorialAPI.Controllers
                 return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
             }
             var chanagePass = await userServices.chanagePasswordByUsername(username,password);
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, chanagePass));
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK,chanagePass));
         }
 
         [HttpDelete]
