@@ -24,7 +24,7 @@ public class DataContext : DbContext
         // });
 
 
-        //base.OnConfiguring(optionsBuilder);
+        base.OnConfiguring(optionsBuilder);
         optionsBuilder.UseNpgsql(configurations.GetConnectionString("Postgres"), options =>
         {
             options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
