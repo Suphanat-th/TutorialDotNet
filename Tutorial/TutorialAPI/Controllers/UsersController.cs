@@ -24,14 +24,21 @@ namespace TutorialAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/{id}/users")]
+        [Route("/user/{id}")]
         public async Task<IActionResult> getUserByID(int id)
         {
             var data = await userServices.getUserByID(id);
             if (data == null)
-            {
-                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
-            }
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, $"ไม่พบข้อมูลผู้ใช้งาน ID : {id} "));
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
+        }
+        [HttpGet]
+        [Route("/user/username/{username}")]
+        public async Task<IActionResult> getUserByUsername(string username)
+        {
+            var data = await userServices.getUserByUsername(username);
+            if (data == null)
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, $"ไม่พบข้อมูลผู้ใช้งาน USERNAME : {username} "));
             return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
         }
 
@@ -39,59 +46,62 @@ namespace TutorialAPI.Controllers
         [Route("/users")]
         public async Task<IActionResult> createUsers(userResponse request)
         {
-            if (string.IsNullOrEmpty(request.username) || string.IsNullOrEmpty(request.password))
+            try
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+                var result = await userServices.createUser(request.username, request.password);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, result));
             }
-            var register_user = await userServices.setUserwithRegister(request.username, request.password);
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK,register_user));
+            catch (Exception err)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
+            }
+
         }
 
         [HttpPut]
-        [Route("/users/id")]
-        public async Task<IActionResult> chanagePasswordById(int id, [FromBody] string password)
+        [Route("/users/password")]
+        public async Task<IActionResult> chanagePasswordById(int id, string password)
         {
-            var existinid = await userServices.getUserByID(id);
-            if (existinid == null)
+            try
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+                await userServices.updatePasswordByID(id, password);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "เปลี่ยนรหัสผ่านเรียบร้อย"));
             }
-            if (string.IsNullOrEmpty(password))
+            catch (Exception err)
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
             }
-            var chanagePass = await userServices.chanagePasswordById(id,password);
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK,chanagePass));
         }
 
         [HttpPut]
-        [Route("/users/username")]
-        public async Task<IActionResult> chanagePasswordByUsername(string username,[FromBody] string password)
+        [Route("/users/password/username")]
+        public async Task<IActionResult> chanagePasswordByUsername(string username, string password)
         {
-            var existinid = await userServices.getUserByUsername(username);
-            if (existinid == null)
+            try
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+                await userServices.updatePasswordByUsername(username, password);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "เปลี่ยนรหัสผ่านเรียบร้อย"));
             }
-            if (string.IsNullOrEmpty(password))
+            catch (Exception err)
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
             }
-            var chanagePass = await userServices.chanagePasswordByUsername(username,password);
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK,chanagePass));
         }
 
         [HttpDelete]
         [Route("/users/{id}")]
         public async Task<IActionResult> deleteUser(int id)
         {
-            var existinid = await userServices.getUserByID(id);
-            if (existinid == null)
+            try
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError));
+                await userServices.DeleteByID(id);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, $"ลบข้อมูลผู้ใช้ ID:{id} งานเรียบร้อย"));
             }
-            var result = await userServices.deleteUser(id);
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, result));
+            catch (Exception err)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
+            }
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
         }
 
     }

@@ -14,19 +14,27 @@ public class DataContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Fruit> Fruits { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite(configurations.GetConnectionString("Sqlite"), options =>
+        // optionsBuilder.UseSqlite(configurations.GetConnectionString("Sqlite"), options =>
+        // {
+        //     options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+        // });
+
+
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.UseNpgsql(configurations.GetConnectionString("Postgres"), options =>
         {
             options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
         });
-        base.OnConfiguring(optionsBuilder);
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfiguration(new UserConfiguration());
+        builder.ApplyConfiguration(new FruitConfiguration());
         base.OnModelCreating(builder);
     }
 
