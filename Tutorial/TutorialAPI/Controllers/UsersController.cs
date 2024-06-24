@@ -42,64 +42,67 @@ namespace TutorialAPI.Controllers
 
 
         [HttpGet]
-        [Route("/{id}/users")]
+        [Route("/user/{id}")]
         public async Task<IActionResult> getUserByID(int id)
         {
-            var data = await userRepository.getByID(id);
-            if (data != null)
-            {
-                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
-            }
-            else
-            {
-                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "No userId"));
-            }
+            var data = await userServices.getUserByID(id);
+            if (data == null)
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, $"ไม่พบข้อมูลผู้ใช้งาน ID : {id} "));
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
+        }
+        [HttpGet]
+        [Route("/user/username/{username}")]
+        public async Task<IActionResult> getUserByUsername(string username)
+        {
+            var data = await userServices.getUserByUsername(username);
+            if (data == null)
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, $"ไม่พบข้อมูลผู้ใช้งาน USERNAME : {username} "));
+            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
         }
 
         [HttpPost]
         [Route("/users")]
         public async Task<IActionResult> createUsers(userResponse request)
         {
-            //Check username have in Database or not
-            var checkUesername = await userRepository.getByUsername(request.username.ToLower());
-            if (checkUesername != null)
-                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "This username already have"));
-
-
-            //Create username 
-            var data = await userRepository.createUsers(request);
-            if (data == true)
+            try
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "Create User Success!!"));
+                var result = await userServices.createUser(request.username, request.password);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, result));
             }
-            else
+            catch (Exception err)
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "Create User Failed!!"));
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
+            }
 
+        }
+
+        [HttpPut]
+        [Route("/users/password")]
+        public async Task<IActionResult> chanagePasswordById(int id, string password)
+        {
+            try
+            {
+                await userServices.updatePasswordByID(id, password);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "เปลี่ยนรหัสผ่านเรียบร้อย"));
+            }
+            catch (Exception err)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
             }
         }
 
         [HttpPut]
-        [Route("/users/id")]
-        public async Task<IActionResult> chanagePasswordById(int id)
+        [Route("/users/password/username")]
+        public async Task<IActionResult> chanagePasswordByUsername(string username, string password)
         {
-
-            return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
-        }
-
-        [HttpPut]
-        [Route("/users/{username}")]
-        public async Task<IActionResult> chanagePasswordByUsername(string username)
-        {
-            var data = await userRepository.getByUsername(username.ToLower());
-            if (data != null)
+            try
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, data));
-
+                await userServices.updatePasswordByUsername(username, password);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "เปลี่ยนรหัสผ่านเรียบร้อย"));
             }
-            else
+            catch (Exception err)
             {
-                return await Task.FromResult(StatusCode(StatusCodes.Status400BadRequest, "Doesn't have username in system"));
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
             }
         }
 
@@ -107,6 +110,15 @@ namespace TutorialAPI.Controllers
         [Route("/users/{id}")]
         public async Task<IActionResult> deleteUser(int id)
         {
+            try
+            {
+                await userServices.DeleteByID(id);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, $"ลบข้อมูลผู้ใช้ ID:{id} งานเรียบร้อย"));
+            }
+            catch (Exception err)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
+            }
             return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
         }
 
