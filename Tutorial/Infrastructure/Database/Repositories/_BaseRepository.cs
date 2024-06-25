@@ -17,7 +17,7 @@ public class _BaseRepository<TEntity> : _IBaseRepository<TEntity> where TEntity 
         this._context = baseContext;
     }
 
-    public async Task<IEnumerable<TEntity?>> GetAsync() => await Task.FromResult(_context.Set<TEntity>().AsEnumerable());
+    public async Task<IEnumerable<TEntity?>> GetAsync() => await Task.FromResult(_context.Set<TEntity>());
     public async Task<TEntity?> GetByIdAsync(int id) => await _context.Set<TEntity>().FindAsync(id);
 
 
@@ -49,8 +49,6 @@ public class _BaseRepository<TEntity> : _IBaseRepository<TEntity> where TEntity 
         return entity;
     }
 
-    public async Task SaveChangesAsync()
-    {
-        await _context.SaveChangesAsync();
-    }
+    public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
+
 }

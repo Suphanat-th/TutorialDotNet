@@ -57,7 +57,7 @@ namespace TutorialAPI.Controllers
         }
 
         [HttpPut]
-        [Route("/users/{id}")]
+        [Route("/users/password")]
         public async Task<IActionResult> chanagePasswordById(int id, string password)
         {
             try
@@ -72,7 +72,7 @@ namespace TutorialAPI.Controllers
         }
 
         [HttpPut]
-        [Route("/users/username/{username}")]
+        [Route("/users/password/username")]
         public async Task<IActionResult> chanagePasswordByUsername(string username, string password)
         {
             try
@@ -90,6 +90,15 @@ namespace TutorialAPI.Controllers
         [Route("/users/{id}")]
         public async Task<IActionResult> deleteUser(int id)
         {
+            try
+            {
+                await userServices.DeleteByID(id);
+                return await Task.FromResult(StatusCode(StatusCodes.Status200OK, $"ลบข้อมูลผู้ใช้ ID:{id} งานเรียบร้อย"));
+            }
+            catch (Exception err)
+            {
+                return await Task.FromResult(StatusCode(StatusCodes.Status500InternalServerError, err.Message));
+            }
             return await Task.FromResult(StatusCode(StatusCodes.Status200OK, "What  is  result ?"));
         }
 

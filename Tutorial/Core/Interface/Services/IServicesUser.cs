@@ -7,4 +7,5 @@ public interface IServicesUser
     Task<userResponse?> createUser(string username, string password);
     Task updatePasswordByID(int id, string password);
     Task updatePasswordByUsername(string Username, string password);
+    Task DeleteByID(int id);
 }
